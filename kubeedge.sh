@@ -2,8 +2,6 @@
 sudo apt-get update
 sudo apt-get upgrade -y
 
-HOSTNAME
-
 # Install required files
 sudo apt install apt-transport-https curl -y
 
