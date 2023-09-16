@@ -1,4 +1,5 @@
 # Update
+sudo su
 sudo apt-get update
 sudo apt-get upgrade -y
 
@@ -22,16 +23,16 @@ sudo apt install kubeadm kubelet kubectl kubernetes-cni -y
 
 # Disable Swap
 sudo swapoff -a
-sed -i '/ swap / s/^/#/' /etc/fstab
+sudo sed -i '/ swap / s/^/#/' /etc/fstab
 
 # Enable IP features
 sudo modprobe br_netfilter
 sudo sysctl -w net.ipv4.ip_forward=1
 
 # init kubeadm
-rm /etc/containerd/config.toml
-systemctl restart containerd
-kubeadm init
+sudo rm /etc/containerd/config.toml
+sudo systemctl restart containerd
+sudo kubeadm init
 
 # set config
 mkdir -p $HOME/.kube
@@ -51,13 +52,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
 sudo apt-get install -y uidmap
-dockerd-rootless-setuptool.sh install
+#dockerd-rootless-setuptool.sh install
 
 # Add the repository to Apt sources:
-echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
@@ -78,9 +75,14 @@ export PATH=$PATH:/usr/local/go/bin
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 
-sudo apt-get install iptables openssl git make manpages-dev build-essential jq -y
+sudo apt install iptables openssl git make manpages-dev build-essential jq -y
+
+wget https://github.com/kubeedge/kubeedge/releases/download/v1.12.1/keadm-v1.12.1-linux-amd64.tar.gz
+tar -zxvf keadm-v1.12.1-linux-amd64.tar.gz
+cp keadm-v1.12.1-linux-amd64/keadm/keadm /usr/local/bin/keadm
+
 rm -rf kubeedge
-git clone https://github.com/kubeedge/kubeedge.git kubeedge
+git clone https://github.com/kubeedge/kubeedge.git kubeedge -b release-1.14
 cd kubeedge/hack
 for i in $(ls update*.sh); do
   bash $i
