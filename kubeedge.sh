@@ -20,7 +20,7 @@ sudo systemctl restart containerd
 # Install Kubernetes
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
-sudo apt install kubeadm kubelet kubectl kubernetes-cni
+sudo apt install kubeadm kubelet kubectl kubernetes-cni -y
 
 # Disable Swap
 sudo swapoff -a
@@ -47,7 +47,7 @@ kubectl apply -f calico.yaml
 
 # Add Docker's official GPG key:
 sudo apt-get update
-sudo apt-get install ca-certificates curl gnupg
+sudo apt-get install ca-certificates curl gnupg -y
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
