@@ -1,5 +1,4 @@
 # Update
-sudo su
 sudo apt-get update
 sudo apt-get upgrade -y
 
@@ -36,7 +35,7 @@ sudo kubeadm init
 
 # set config
 mkdir -p $HOME/.kube
-sudo cp -iT /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo cp -if /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # Set calico
@@ -77,9 +76,9 @@ sudo mv ./kind /usr/local/bin/kind
 
 sudo apt install iptables openssl git make manpages-dev build-essential jq -y
 
-wget https://github.com/kubeedge/kubeedge/releases/download/v1.12.1/keadm-v1.12.1-linux-amd64.tar.gz
-tar -zxvf keadm-v1.12.1-linux-amd64.tar.gz
-cp keadm-v1.12.1-linux-amd64/keadm/keadm /usr/local/bin/keadm
+wget https://github.com/kubeedge/kubeedge/releases/download/v1.14.2/keadm-v1.14.2-linux-amd64.tar.gz
+tar -zxvf keadm-v1.14.2-linux-amd64.tar.gz
+cp keadm-v1.14.2-linux-amd64/keadm/keadm /usr/local/bin/keadm
 
 rm -rf kubeedge
 git clone https://github.com/kubeedge/kubeedge.git kubeedge -b release-1.14
