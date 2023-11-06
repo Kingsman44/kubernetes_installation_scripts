@@ -35,6 +35,7 @@ sudo kubeadm init
 
 # set config
 mkdir -p $HOME/.kube
+rm -rf $HOME/.kube/config
 sudo cp -if /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
